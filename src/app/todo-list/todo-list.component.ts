@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, PageEvent, MatPaginator } fro
 import { TodoService } from '../service/todo.service';
 import { TodoList } from './todo';
 import { TodoDialog } from '../todo-dialog/todo-dialog.component';
-
+import { InMemoryDbService } from 'angular-in-memory-web-api';
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
@@ -13,13 +13,15 @@ import { TodoDialog } from '../todo-dialog/todo-dialog.component';
 export class TodoListComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private todoService: TodoService) { }
+  
 
   dataLength: any = TodoData.length;
   newDataID: any;
   dataValue: any;
   TodoDataValue: TodoList[];
+   mydata:string="hiiiiiiiiiiiiiii";
 
-
+  //  public dataSources:any =dataSource
   // pagination values
   length = 5;
   pageSize = 5;
@@ -42,26 +44,24 @@ export class TodoListComponent implements OnInit {
         TodoDataValue => {
           this.TodoDataValue = TodoDataValue;
           this.dataSource = new MatTableDataSource(this.TodoDataValue);
+          var myData = TodoDataValue;
+      
         }
       );
   }
-
   ngAfterViewInit() {
     this.getTodo();
   }
-
-
   actionDelete(data) {
     // to find ID in the data
     const posData = TodoData.map(pos => pos.id).indexOf(data);
     TodoData.splice(posData, 1)
     this.reloadData();
   }
-
   openDialog(data): void {
     let currentID = data - 1;
 
-    this.newDataID = Math.max.apply(Math, TodoData.map(newID => newID.id));
+    this.newDataID = Math.max.apply(Math,TodoData.map(newID => newID.id));
 
     if (!data) {
       this.dataValue = { id: this.newDataID + 1, todo: '', date: new Date() }
@@ -82,7 +82,7 @@ export class TodoListComponent implements OnInit {
           this.TodoDataValue = TodoData;
           this.dataSource = new MatTableDataSource(this.TodoDataValue);
         } else {
-          TodoData[currentID].todo = result.todo;
+         TodoData[currentID].todo = result.todo;
           this.TodoDataValue = TodoData;
           this.dataSource = new MatTableDataSource(this.TodoDataValue);
         }
@@ -91,7 +91,6 @@ export class TodoListComponent implements OnInit {
       this.reloadData();
     });
   }
-
 
   reloadData() {
     this.dataSource = new MatTableDataSource(this.TodoDataValue);
@@ -102,11 +101,10 @@ export class TodoListComponent implements OnInit {
   dataSource = new MatTableDataSource(this.TodoDataValue);
 }
 
-
-let TodoData: TodoList[] = [
+var TodoData:any = [
   { id: 1, todo: 'Sample-Task-1', date: new Date() },
   { id: 2, todo: 'Sample-Task-2', date: new Date() },
   { id: 3, todo: 'Sample-Task-3', date: new Date() }
 ];
-
+ 
 

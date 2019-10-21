@@ -29,13 +29,15 @@ import { InMemoryService } from './in-memory.service';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { TodoHeaderComponent } from './todo-header/todo-header.component';
 import { TodoDialog } from './todo-dialog/todo-dialog.component';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoListComponent,
     TodoDialog,
-    TodoHeaderComponent
+    TodoHeaderComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
